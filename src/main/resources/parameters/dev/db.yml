@@ -1,0 +1,8 @@
+db:
+  engine: postgresql
+  host: localhost
+  port: 5434
+  dbname: swd
+  username: swd
+  password: swd1234
+  driver-class-name: org.postgresql.Driver

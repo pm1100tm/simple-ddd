@@ -1,0 +1,6 @@
+1.runtimeOnly 'org.springframework.boot:spring-boot-starter-actuator' // Actuator 엔드포인트
+이건 뭘까
+
+2. 실행 port 설정하는 방법
+
+3. 스웨거

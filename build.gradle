@@ -1,0 +1,66 @@
+plugins {
+    // 자바 애플리케이션 빌드를 위한 플러그인
+    id 'java'
+    // Spring Boot 플러그인: 스프링 부트 애플리케이션 실행 및 설정 지원
+    id 'org.springframework.boot' version '3.4.2'
+    // 의존성 관리를 쉽게 해주는 Spring 플러그인
+    id 'io.spring.dependency-management' version '1.1.7'
+    // Groovy 플러그인: Spock 테스트를 위해 필요
+    id 'groovy'
+}
+
+group = 'com.post'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        // Java 21 사용
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    // Maven Central 저장소 사용
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Boot 기본 스타터
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web' // Spring Boot Starter Web: REST API, 내장 톰캣 등을 제공합니다.
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // Spring Boot Starter Data JPA: JPA/Hibernate를 통한 데이터베이스 연동을 지원합니다.
+    implementation 'org.springframework.boot:spring-boot-starter-validation' // Bean Validation
+    implementation 'org.springframework.boot:spring-boot-starter-security' // Spring Security
+    implementation "org.flywaydb:flyway-core:11.1.0" // 데이터베이스 마이그레이션 도구 Flyway
+
+    // 런타임 전용 의존성
+    runtimeOnly 'org.postgresql:postgresql' // PostgreSQL 드라이버
+    runtimeOnly 'com.h2database:h2' // H2 데이터베이스 (테스트용)
+    runtimeOnly "org.flywaydb:flyway-database-postgresql:11.1.0" // PostgreSQL용 Flyway 지원
+
+    // 컴파일 전용 의존성
+    compileOnly 'org.projectlombok:lombok' // Lombok (코드 생성 도구)
+
+    // 개발 전용 도구
+    developmentOnly 'org.springframework.boot:spring-boot-devtools' // (Spring DevTools)
+
+    annotationProcessor 'org.projectlombok:lombok' // Lombok annotation processor
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // 테스트 의존성
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0' // Spock 프레임워크 (Groovy 기반)
+    testImplementation 'org.spockframework:spock-spring:2.3-groovy-3.0' // Spock 프레임워크 (Groovy 기반)
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform() // JUnit 플랫폼 사용
+}
