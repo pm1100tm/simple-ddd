@@ -25,6 +25,10 @@ public class Member {
 	@Comment("이름")
 	private String name;
 
+	@Column(name = "password")
+	@Comment("비밀번호")
+	private String password;
+
 	@Column(name = "delete_yn")
 	@Enumerated(EnumType.STRING)
 	@Comment("삭제여부(Y/N)")
@@ -33,22 +37,26 @@ public class Member {
 	@CreatedDate
 	@Comment("생성일시")
 	@Column(name = "created_at", updatable = false)
-	protected LocalDateTime createdAt;
+	private LocalDateTime createdAt;
 
 	@LastModifiedDate
 	@Comment("수정일시")
 	@Column(name = "updated_at")
-	protected LocalDateTime updatedAt;
+	private LocalDateTime updatedAt;
 
-	private String memberId() {
+	public String memberId() {
 		return this.memberId;
 	}
 
-	private String name() {
+	public String name() {
 		return this.name;
 	}
 
-	private YnFlag deleteYn() {
+	public String password() {
+		return this.password;
+	}
+
+	public YnFlag deleteYn() {
 		return this.deleteYn;
 	}
 }
