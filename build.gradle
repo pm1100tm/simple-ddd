@@ -45,6 +45,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security' // Spring Security
     implementation "org.flywaydb:flyway-core:${flywayVersion}" // 데이터베이스 마이그레이션 도구 Flyway
     implementation "io.jsonwebtoken:jjwt-api:${jwtVersion}"
+    implementation 'org.json:json:20240303'
 
     // 런타임 전용 의존성
     runtimeOnly 'org.postgresql:postgresql' // PostgreSQL 드라이버
