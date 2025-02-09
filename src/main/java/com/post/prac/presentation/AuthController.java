@@ -2,11 +2,13 @@ package com.post.prac.presentation;
 
 import com.post.prac.application.member.AuthService;
 import com.post.prac.application.member.input.LoginCommand;
+import com.post.prac.framework.advice.LoginUser;
 import com.post.prac.presentation.request.LoginRequest;
 import com.post.prac.presentation.response.LoginResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest request) {
+		System.out.println("Login!!!");
 		var command = LoginCommand.builder()
 				.memberId(request.getMemberId())
 				.password(request.getPassword())
@@ -29,5 +32,11 @@ public class AuthController {
 		var response = authService.process(command);
 
 		return ResponseEntity.ok(LoginResponse.of(response));
+	}
+
+	@PostMapping("/test")
+	public ResponseEntity<LoginResponse> test(@AuthenticationPrincipal LoginUser user) {
+		System.out.println(user);
+		return ResponseEntity.ok().build();
 	}
 }

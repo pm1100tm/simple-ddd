@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 @Getter
 public class JwtProperties {
-
 	private String name;
 	private String prefix;
 	private String secretKey;

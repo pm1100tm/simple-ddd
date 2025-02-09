@@ -5,7 +5,6 @@ import com.post.prac.framework.config.properties.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import lombok.AllArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
@@ -16,10 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@AllArgsConstructor
 public class JwtProvider {
 
 	private final JwtProperties jwtProperties;
+
+	public JwtProvider(JwtProperties jwtProperties) {
+		this.jwtProperties = jwtProperties;
+	}
 
 	private SecretKey getSigningKey() {
 		byte[] decodedKey = Base64.getDecoder().decode(jwtProperties.getSecretKey());
@@ -49,6 +51,8 @@ public class JwtProvider {
 	}
 
 	public JSONObject parseToken(String token) {
+		System.out.println(token);
+
 		try {
 			Claims claims = Jwts.parser()
 					.verifyWith(getSigningKey())
@@ -57,6 +61,7 @@ public class JwtProvider {
 					.getPayload();
 
 			return new JSONObject(claims);
+
 		} catch (Exception e) {
 			throw new RuntimeException("Invalid JWT token", e);
 		}
