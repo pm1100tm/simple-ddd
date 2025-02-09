@@ -55,6 +55,7 @@ spring:
       on-profile: dev
     import:
       - classpath:parameters/dev/db.yml
+      - classpath:parameters/dev/jwt.yml
 
 ---
 # active profile - local 에 따른 환경변수 주입
@@ -64,3 +65,4 @@ spring:
       on-profile: local
     import:
       - classpath:parameters/local/db.yml
+      - classpath:parameters/local/jwt.yml
