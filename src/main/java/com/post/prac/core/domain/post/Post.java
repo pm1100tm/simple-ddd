@@ -1,4 +1,4 @@
-package com.post.prac.domain.model.post;
+package com.post.prac.core.domain.post;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

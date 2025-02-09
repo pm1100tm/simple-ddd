@@ -3,6 +3,7 @@ package com.post.prac.presentation;
 import com.post.prac.application.member.AuthService;
 import com.post.prac.application.member.input.LoginCommand;
 import com.post.prac.presentation.request.LoginRequest;
+import com.post.prac.presentation.response.LoginResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,17 +20,14 @@ public class AuthController {
 	private final AuthService authService;
 
 	@PostMapping("/login")
-	public ResponseEntity<Void> login(@RequestBody @Valid LoginRequest request) {
+	public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest request) {
 		var command = LoginCommand.builder()
 				.memberId(request.getMemberId())
 				.password(request.getPassword())
 				.build();
 
 		var response = authService.process(command);
-		System.out.println("***** response: start");
-		System.out.println(response);
-		System.out.println("***** response: end");
 
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok(LoginResponse.of(response));
 	}
 }

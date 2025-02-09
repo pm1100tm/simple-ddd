@@ -1,6 +1,6 @@
-package com.post.prac.domain.repository;
+package com.post.prac.core.repository;
 
-import com.post.prac.domain.model.post.Post;
+import com.post.prac.core.domain.post.Post;
 
 import java.util.List;
 import java.util.Optional;

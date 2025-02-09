@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS swd.member (
 );
 
 INSERT INTO swd.member
-(member_id, name, password, delete_yn, created_at, updated_at)
+(member_id, "name", password, delete_yn, created_at, updated_at)
 VALUES
 ('member_id_001', '멤버001', 'password1', 'N', CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6)),
 ('member_id_002', '멤버002', 'password2', 'N', CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6)),

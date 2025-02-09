@@ -1,4 +1,4 @@
-package com.post.prac.domain.model.type;
+package com.post.prac.core.domain.type;
 
 import lombok.Getter;
 

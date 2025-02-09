@@ -1,6 +1,6 @@
-package com.post.prac.domain.repository;
+package com.post.prac.core.repository;
 
-import com.post.prac.domain.model.member.Member;
+import com.post.prac.core.domain.member.Member;
 
 import java.util.Optional;
 

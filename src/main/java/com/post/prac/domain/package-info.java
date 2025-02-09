@@ -1,1 +1,0 @@
-package com.post.prac.domain;

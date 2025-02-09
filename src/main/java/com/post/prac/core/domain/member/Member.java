@@ -1,6 +1,6 @@
-package com.post.prac.domain.model.member;
+package com.post.prac.core.domain.member;
 
-import com.post.prac.domain.model.type.YnFlag;
+import com.post.prac.core.domain.type.YnFlag;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
