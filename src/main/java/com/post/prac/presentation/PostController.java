@@ -3,12 +3,14 @@ package com.post.prac.presentation;
 import com.post.prac.application.post.PostService;
 import com.post.prac.application.post.input.CreatePostCommand;
 import com.post.prac.application.post.input.UpdatePostCommand;
+import com.post.prac.framework.advice.AuthUser;
 import com.post.prac.presentation.request.CreatePostRequest;
 import com.post.prac.presentation.request.UpdatePostRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,8 +24,12 @@ public class PostController {
 	private final PostService postService;
 
 	@PostMapping("")
-	public ResponseEntity<Void> createPost(@RequestBody @Valid CreatePostRequest request) {
+	public ResponseEntity<Void> createPost(
+			@AuthenticationPrincipal AuthUser authUser,
+			@RequestBody @Valid CreatePostRequest request
+	) {
 		var command = CreatePostCommand.builder()
+				.memberId(authUser.memberId())
 				.title(request.getTitle())
 				.content(request.getContent())
 				.build();

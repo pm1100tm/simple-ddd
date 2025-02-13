@@ -2,7 +2,7 @@ package com.post.prac.presentation;
 
 import com.post.prac.application.member.AuthService;
 import com.post.prac.application.member.input.LoginCommand;
-import com.post.prac.framework.advice.LoginUser;
+import com.post.prac.framework.advice.AuthUser;
 import com.post.prac.presentation.request.LoginRequest;
 import com.post.prac.presentation.response.LoginResponse;
 import jakarta.validation.Valid;
@@ -35,7 +35,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/test")
-	public ResponseEntity<LoginResponse> test(@AuthenticationPrincipal LoginUser user) {
+	public ResponseEntity<LoginResponse> test(@AuthenticationPrincipal AuthUser user) {
 		System.out.println(user);
 		return ResponseEntity.ok().build();
 	}

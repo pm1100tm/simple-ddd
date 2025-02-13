@@ -4,7 +4,7 @@ import com.post.prac.application.member.output.LoginDto;
 import com.post.prac.application.member.port.LoginOutputPort;
 import com.post.prac.core.domain.member.dto.LoginImplInDto;
 import com.post.prac.core.domain.member.dto.LoginImplOutDto;
-import com.post.prac.framework.config.JwtProvider;
+import com.post.prac.framework.auth.JwtProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

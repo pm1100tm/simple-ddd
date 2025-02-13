@@ -1,6 +1,7 @@
 package com.post.prac.framework.config;
 
 import com.post.prac.framework.filter.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,15 +11,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@RequiredArgsConstructor
 public class SpringSecurityConfig {
 
-	@Bean
-	public JwtAuthenticationFilter jwtAuthenticationFilter(JwtProvider jwtProvider) {
-		return new JwtAuthenticationFilter(jwtProvider);
-	}
+	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtProvider jwtProvider) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 				// CSRF 보호 비활성화 (stateless API 이므로)
 				.csrf(AbstractHttpConfigurer::disable)
@@ -30,7 +29,7 @@ public class SpringSecurityConfig {
 						.requestMatchers("/api/v1/auth/login").permitAll()
 						.anyRequest().authenticated() // 그 외 요청은 인증 필요
 				)
-				.addFilterBefore(jwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 		;
 
 		return http.build();
