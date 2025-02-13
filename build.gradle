@@ -68,7 +68,14 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0' // Spock 프레임워크 (Groovy 기반)
     testImplementation 'org.spockframework:spock-spring:2.3-groovy-3.0' // Spock 프레임워크 (Groovy 기반)
+}
 
+// build 후 jar 파일명, 위치 설정 커스텀
+tasks.named("bootJar") {
+    archiveBaseName.set("PRAC-DDD-JPA")     // JAR 파일명 변경
+    archiveVersion.set(version)             // 버전 변경
+    archiveFileName.set("prac-ddd-jpa-${version}.jar") // 최종 파일명 설정
+    destinationDirectory.set(layout.buildDirectory.dir("out")) // JAR 파일 생성 위치 변경
 }
 
 tasks.named('test') {
