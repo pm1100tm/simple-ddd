@@ -26,8 +26,10 @@ public class SpringSecurityConfig {
 				// 엔드포인트 별 접근 제어 설정
 				// 로그인 엔드포인트는 인증 없이 허용. 하지만 Filter 를 실행하지 않는 것은 아니다. 결국 양쪽 모두에 있어야 함.
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/api/v1/auth/login").permitAll()
-						.anyRequest().authenticated() // 그 외 요청은 인증 필요
+					.requestMatchers("/api/v1/auth/login").permitAll()
+					.requestMatchers("/actuator/health").permitAll()
+					.requestMatchers("/**").permitAll()
+					.anyRequest().authenticated() // 그 외 요청은 인증 필요
 				)
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 		;
