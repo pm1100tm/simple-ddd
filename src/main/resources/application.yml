@@ -47,6 +47,21 @@ logging:
     org.hibernate.SQL: TRACE
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
+server:
+  port: 8080
+
+# healthcheck
+# 확인방법1: curl -X GET http://localhost:8080/actuator/health
+# 확인방법2: http://localhost:8080/actuator/health
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
 ---
 # active profile - dev 에 따른 환경변수 주입
 spring:
