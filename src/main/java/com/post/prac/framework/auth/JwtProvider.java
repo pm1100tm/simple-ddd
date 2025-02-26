@@ -74,9 +74,8 @@ public class JwtProvider {
 	 * JWT 토큰의 유효성을 검증합니다.
 	 * - 서명, 형식, 만료 여부 등을 체크하여 토큰이 유효한지 판단합니다.
 	 * @param token JWT 토큰 문자열
-	 * @return 유효한 토큰이면 true, 그렇지 않다면 false
 	 * */
-	public boolean validateToken(String token) {
+	public void validateToken(String token) {
 		try {
 			Jwts.parser()
 					.verifyWith(getSigningKey())
@@ -88,8 +87,8 @@ public class JwtProvider {
 				 | UnsupportedJwtException
 				 | IllegalArgumentException e) {
 			log.error("[ERROR] {} : {}", e.getClass().getName(), e.getMessage());
+			throw new InvalidTokenException("올바른 토큰이 아닙니다.");
 		}
-		return false;
 	}
 
 	/**
@@ -98,10 +97,7 @@ public class JwtProvider {
 	 * @return 토큰에 포함된 사용자 식별자(Subject)
 	 */
 	public String getSubject(String token) {
-		if (!validateToken(token)) {
-			throw new InvalidTokenException("토큰으로부터 Subject 추출에 실패하였습니다.");
-		}
-
+		validateToken(token);
 		Claims claims = Jwts.parser()
 				.verifyWith(getSigningKey())
 				.build()
@@ -117,10 +113,7 @@ public class JwtProvider {
 	 * @return 토큰에서 payload 값을 JSONObject 로 변환한 값
 	 */
 	public JSONObject getJsonObject(String token) {
-		if (!validateToken(token)) {
-			throw new InvalidTokenException("토큰으로부터 JsonObject 추출에 실패하였습니다.");
-		}
-
+		validateToken(token);
 		Claims claims = Jwts.parser()
 				.verifyWith(getSigningKey())
 				.build()
