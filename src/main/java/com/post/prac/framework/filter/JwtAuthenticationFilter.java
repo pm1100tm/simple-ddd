@@ -2,6 +2,7 @@ package com.post.prac.framework.filter;
 
 import com.post.prac.framework.advice.AuthUser;
 import com.post.prac.framework.auth.JwtProvider;
+import com.post.prac.framework.exception.InvalidTokenException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,15 +29,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private final JwtProvider jwtProvider;
 	private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
-	private final List<String> EXCLUDED_PATHS = List.of(
+	private final List<String> EXCLUDE_PATHS = List.of(
+			"/actuator",
+			"/actuator/**",
 			"/api/v1/auth/login"
+	);
+
+	private final List<String> INCLUDE_PATHS = List.of(
+			"/api/v1/**"
 	);
 
 	/**
 	 * 특정 요청 경로가 인증 예외 대상(EXCLUDED_PATHS)에 포함되는지 확인
 	 */
-	private boolean isExcludedPath(String requestPath) {
-		return EXCLUDED_PATHS.stream()
+	private boolean checkExcludePath(String requestPath) {
+		return EXCLUDE_PATHS.stream()
+				.anyMatch(it -> pathMatcher.match(it, requestPath));
+	}
+
+	private boolean checkIncludePath(String requestPath) {
+		return INCLUDE_PATHS.stream()
 				.anyMatch(it -> pathMatcher.match(it, requestPath));
 	}
 
@@ -64,17 +76,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(@NonNull HttpServletRequest request,
 									@NonNull HttpServletResponse response,
 									@NonNull FilterChain filterChain) throws ServletException, IOException {
-		String path = request.getServletPath();
 
-		// ✅ 특정 경로는 인증 로직을 타지 않음
-		if(isExcludedPath(path)) {
+		String requestPath = request.getServletPath();
+		if(checkExcludePath(requestPath)) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+		if(!checkIncludePath(requestPath)) {
 			filterChain.doFilter(request, response);
 			return;
 		}
 
 		String token = getJwtFromRequest(request);
 		if (!StringUtils.hasText(token)) {
-			throw new ServletException("JWT token is empty");
+			throw new InvalidTokenException("Token is Empty");
 		}
 
 		// TODO: ✅ JWT 검증 수행

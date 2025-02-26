@@ -1,4 +1,4 @@
-package com.post.prac.framework.auth.exception;
+package com.post.prac.framework.exception;
 
 public class InvalidTokenException extends RuntimeException{
 	private static final String DEFAULT_MESSAGE = "잘못된 토큰입니다.";

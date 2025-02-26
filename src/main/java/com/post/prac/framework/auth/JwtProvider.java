@@ -1,8 +1,8 @@
 package com.post.prac.framework.auth;
 
 import com.post.prac.core.domain.member.dto.LoginImplInDto;
-import com.post.prac.framework.auth.exception.InvalidTokenException;
-import com.post.prac.framework.auth.exception.InvalidTokenFormatException;
+import com.post.prac.framework.exception.InvalidTokenException;
+import com.post.prac.framework.exception.InvalidTokenFormatException;
 import com.post.prac.framework.config.JwtConfig;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
