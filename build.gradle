@@ -48,6 +48,7 @@ dependencies {
     implementation 'org.json:json:20240303'
 
     // 런타임 전용 의존성
+    runtimeOnly 'org.springframework.boot:spring-boot-starter-actuator' // Actuator 엔드포인트
     runtimeOnly 'org.postgresql:postgresql' // PostgreSQL 드라이버
     runtimeOnly 'com.h2database:h2' // H2 데이터베이스 (테스트용)
     runtimeOnly "org.flywaydb:flyway-database-postgresql:${flywayVersion}" // PostgreSQL용 Flyway 지원
