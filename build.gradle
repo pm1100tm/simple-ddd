@@ -60,6 +60,7 @@ dependencies {
 
     // 개발 전용 도구
     developmentOnly 'org.springframework.boot:spring-boot-devtools' // (Spring DevTools)
+    developmentOnly 'org.springframework.boot:spring-boot-docker-compose' // (docker compose)
 
     annotationProcessor 'org.projectlombok:lombok' // Lombok annotation processor
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
