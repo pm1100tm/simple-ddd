@@ -6,6 +6,8 @@ import com.post.prac.application.post.input.UpdatePostCommand;
 import com.post.prac.framework.advice.AuthUser;
 import com.post.prac.presentation.request.CreatePostRequest;
 import com.post.prac.presentation.request.UpdatePostRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,16 +15,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * REST 컨트롤러: 외부 클라이언트와의 통신을 통해 게시글 CRUD API를 제공합니다.
- */
 @RestController
 @RequestMapping("/api/v1/posts")
 @RequiredArgsConstructor
+@Tag(name = "01. 게시판(Domain - Post")
 public class PostController {
 
 	private final PostService postService;
 
+	@Operation(summary = "게시판 등록", description = "게시판 글을 등록합니다.")
 	@PostMapping("")
 	public ResponseEntity<Void> createPost(
 			@AuthenticationPrincipal AuthUser authUser,
@@ -37,7 +38,8 @@ public class PostController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-	@PatchMapping("/{postId}")
+	@Operation(summary = "게시판 수정", description = "특정 게시판 글을 수정합니다.")
+	@PutMapping("/{postId}")
 	public ResponseEntity<Void> updatePost(
 			@RequestBody @Valid UpdatePostRequest request,
 			@PathVariable String postId
