@@ -3,6 +3,9 @@ package util;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+/**
+ * JwtProvider 생성자에 사용되는 secret key 를 생성하는 유틸입니다.
+ */
 public class KeyGen {
 	public static void main(String[] args) {
 		// JJWT 0.12.x 버전 이후에서는 Keys.secretKeyFor(SignatureAlgorithm) 대신 Keys.hmacShaKeyFor()와 SecureRandom 을
