@@ -1,4 +1,4 @@
-# Lounge Back Project
+# Java SpringBoot JPA With SIMPLE DDD Project
 
 ## 프로젝트 개요
 - Java, SpringBoot, JPA 학습용의 프로젝트입니다.
