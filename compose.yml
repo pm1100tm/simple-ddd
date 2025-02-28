@@ -1,0 +1,21 @@
+services:
+  db:
+    container_name: prac-jpa-db
+    image: postgres:16.4
+    platform: linux/amd64 # M1 이상 아키텍쳐 옵션 값 추가
+    ports:
+      - '5433:5432'
+    networks:
+      - my-network
+    environment:
+      TZ: UTC
+      POSTGRES_USER: swd
+      POSTGRES_PASSWORD: swd1234
+      POSTGRES_DB: swd-db
+    restart: unless-stopped
+    healthcheck:
+      test: [ 'CMD', 'pg_isready', '-U', 'swd-db' ]
+
+networks:
+  my-network:
+    driver: bridge
