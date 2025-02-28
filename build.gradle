@@ -1,12 +1,8 @@
 plugins {
-    // 자바 애플리케이션 빌드를 위한 플러그인
-    id 'java'
-    // Spring Boot 플러그인: 스프링 부트 애플리케이션 실행 및 설정 지원
-    id 'org.springframework.boot' version '3.4.2'
-    // 의존성 관리를 쉽게 해주는 Spring 플러그인
-    id 'io.spring.dependency-management' version '1.1.7'
-    // Groovy 플러그인: Spock 테스트를 위해 필요
-    id 'groovy'
+    id 'java' // 자바 애플리케이션 빌드를 위한 플러그인
+    id 'org.springframework.boot' version '3.4.2' // Spring Boot 플러그인: 스프링 부트 애플리케이션 실행 및 설정 지원
+    id 'io.spring.dependency-management' version '1.1.7' // 의존성 관리를 쉽게 해주는 Spring 플러그인
+    id 'groovy' // Groovy 플러그인: Spock 테스트를 위해 필요
 }
 
 group = 'com.post'
@@ -34,6 +30,7 @@ ext {
     // 각 라이브러리 버전 설정 (중앙에서 관리)
     set('jwtVersion', '0.12.6') // JWT(Json Web Token) 라이브러리 버전
     set('flywayVersion', '11.1.0') // Flyway 라이브러리 버전
+    set('springdocVersion', '2.6.0') // SpringDoc (Swagger UI) 라이브러리 버전
 }
 
 dependencies {
@@ -46,6 +43,7 @@ dependencies {
     implementation "org.flywaydb:flyway-core:${flywayVersion}" // 데이터베이스 마이그레이션 도구 Flyway
     implementation "io.jsonwebtoken:jjwt-api:${jwtVersion}"
     implementation 'org.json:json:20240303'
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocVersion}" // Swagger UI를 위한 SpringDoc
 
     // 런타임 전용 의존성
     runtimeOnly 'org.springframework.boot:spring-boot-starter-actuator' // Actuator 엔드포인트
