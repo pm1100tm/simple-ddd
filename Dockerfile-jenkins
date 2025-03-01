@@ -1,5 +1,3 @@
-# Dockerfile-jenkins
-
 # 공식 Jenkins 이미지 중 JDK 21을 지원하는 LTS 버전을 사용
 FROM jenkins/jenkins:lts-jdk21
 

@@ -72,8 +72,8 @@ dependencies {
 
 // build 후 jar 파일명, 위치 설정 커스텀
 tasks.named("bootJar") {
-    archiveBaseName.set("PRAC-DDD-JPA")     // JAR 파일명 변경
-    archiveVersion.set(version)             // 버전 변경
+    archiveBaseName.set("PRAC-DDD-JPA") // jar 파일의 이름을 지정하는 역할. archiveFileName 가 있다면 archiveBaseName 무시된다.
+    archiveVersion.set(version) // 버전명 설정
     archiveFileName.set("prac-jpa-${version}.jar") // 최종 파일명 설정
     destinationDirectory.set(layout.buildDirectory.dir("libs")) // JAR 파일 생성 위치 변경
 }

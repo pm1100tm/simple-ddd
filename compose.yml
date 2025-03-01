@@ -14,7 +14,7 @@ services:
       POSTGRES_DB: swd-db
     restart: unless-stopped
     healthcheck:
-      test: [ 'CMD', 'pg_isready', '-U', 'swd-db' ]
+      test: [ 'CMD', 'pg_isready', '-U', 'swd' ]
 
   jenkins:
     container_name: jenkins-prac-jpa # Jenkins 컨테이너명
