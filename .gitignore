@@ -39,7 +39,6 @@ out/
 ### Custom ###
 .DS_Store
 memo.txt
-TODO.md
 study-note
 vol-jenkins
 vol-deployment
