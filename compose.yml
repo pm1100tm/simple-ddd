@@ -18,7 +18,9 @@ services:
 
   jenkins:
     container_name: jenkins-prac-jpa # Jenkins 컨테이너명
-    image: jenkins/jenkins:lts # jenkins 이미지
+    build:
+      context: .
+      dockerfile: ./Dockerfile-jenkins
     ports:
       - '9081:8080' # 호스트의 9081 포트를 컨테이너의 9081 포트에 매핑(Jenkins 웹 UI 접근)
       - '50000:50000' # 호스트의 50000 포트를 컨테이너의 50000 포트에 매핑(Jenkins 에이전트 에이전트 통신)

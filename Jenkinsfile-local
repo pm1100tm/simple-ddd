@@ -1,0 +1,65 @@
+// Jenkins 로컬 연습용
+pipeline {
+    agent any // 모든 Jenkins 에이전트에서 파이프라인 실행
+
+    environment {
+        // 컨테이너 워크스페이스 내의 build 산출물 패스
+        JAR_PATH = 'build/libs/prac-jpa-0.0.1-SNAPSHOT.jar'
+        // 로컬과 마운트 된 컨테이너 배포 폴더
+        DEPLOY_DIR = '/var/deployment'
+        // * 앞에 / 를 붙이면 루트 폴더 경로가 되며, 안붙이는 경우 상대 경로가 된다.
+
+        GIT_URL = 'https://github.com/pm1100tm/simple-ddd.git'
+        GIT_BRANCH = 'feature/jenkins-test'
+    }
+
+    stages {
+        stage('Check java') {
+            steps {
+                // Java 버전을 확인하여 환경이 올바른지 검증
+                sh 'java -version'
+            }
+        }
+
+        stage('Checkout') {
+            steps {
+                script {
+                    try {
+                        // Git 레포지토리에서 소스 코드를 가져옵니다.
+                        git url: env.GIT_URL, branch: env.GIT_BRANCH
+                    } catch (e) {
+                        print(e)
+                    }
+                }
+            }
+        }
+
+        stage('Build & Test') {
+            steps {
+                // Gradle을 통해 클린 빌드 및 테스트 실행
+                sh './gradlew clean build'
+            }
+        }
+
+        stage('check jar') {
+            steps {
+                // 빌드 결과로 생성된 jar 파일 목록 확인
+                sh 'ls -l build/libs'
+            }
+        }
+
+        stage('scp jar in jenkins container to local') {
+            steps {
+                // 빌드 산출물 jar 파일을 배포 디렉토리로 복사. 상대 경로를 사용해야 올바른 위치에서 파일을 찾음
+                sh "cp ${env.JAR_PATH} ${env.DEPLOY_DIR}/"
+            }
+        }
+    }
+
+    post {
+        failure {
+            // 빌드나 배포 과정 중 오류가 발생하면 로그 메시지 출력
+            echo "Fail to Build or deployment failed. Please check the logs."
+        }
+    }
+}

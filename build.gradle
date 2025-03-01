@@ -74,8 +74,8 @@ dependencies {
 tasks.named("bootJar") {
     archiveBaseName.set("PRAC-DDD-JPA")     // JAR 파일명 변경
     archiveVersion.set(version)             // 버전 변경
-    archiveFileName.set("prac-ddd-jpa-${version}.jar") // 최종 파일명 설정
-    destinationDirectory.set(layout.buildDirectory.dir("out")) // JAR 파일 생성 위치 변경
+    archiveFileName.set("prac-jpa-${version}.jar") // 최종 파일명 설정
+    destinationDirectory.set(layout.buildDirectory.dir("libs")) // JAR 파일 생성 위치 변경
 }
 
 tasks.named('test') {
