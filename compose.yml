@@ -16,6 +16,21 @@ services:
     healthcheck:
       test: [ 'CMD', 'pg_isready', '-U', 'swd-db' ]
 
+  jenkins:
+    container_name: jenkins-prac-jpa # Jenkins 컨테이너명
+    build:
+      context: .
+      dockerfile: ./Dockerfile-jenkins
+    ports:
+      - '9081:8080' # 호스트의 9081 포트를 컨테이너의 9081 포트에 매핑(Jenkins 웹 UI 접근)
+      - '50000:50000' # 호스트의 50000 포트를 컨테이너의 50000 포트에 매핑(Jenkins 에이전트 에이전트 통신)
+    volumes:
+      - ./vol-jenkins:/var/jenkins_home # Jenkins 설정과 데이터를 호스트의 디렉토리에 연결(영속성 보장)
+      - ./vol-deployment:/var/deployment # 빌드 산출물(jar 파일) 배포 대상 폴더를 마운트
+    networks:
+      - my-network # 동일한 네트워크에 연결하여 다른 서비스(db 등)과 통신
+    restart: unless-stopped # 컨테이너 중단 시 자동 재시작
+
 networks:
   my-network:
-    driver: bridge
+    driver: bridge # 브릿지 네트워크 사용. 컨테이너간 기본 네트워킹 제공
