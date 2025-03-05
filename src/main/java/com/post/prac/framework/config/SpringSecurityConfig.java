@@ -16,12 +16,14 @@ public class SpringSecurityConfig {
 
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+	// 루트 패스를 white list 에 설정해야 swagger redirect config 가 작동함
 	private static final String[] WHITE_LIST = new String[]{
 			"/v3/api-docs/**",
 			"/swagger-ui.html",
 			"/swagger-ui/**",
 			"/actuator/health",
-			"/api/v1/auth/**"
+			"/api/v1/auth/**",
+			"/"
 	};
 
 	@Bean

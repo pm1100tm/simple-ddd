@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-public class OpenApiConfig {
+public class SwaggerConfig {
 	private static final String TITLE = "My Study App API";
 	private static final String DESCRIPTION = "API Documentation";
 	private static final String VERSION = "1.0";
