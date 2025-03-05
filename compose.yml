@@ -33,6 +33,21 @@ services:
       - my-network # 동일한 네트워크에 연결하여 다른 서비스(db 등)과 통신
     restart: unless-stopped # 컨테이너 중단 시 자동 재시작
 
+  app:
+    container_name: prac-jpa-app
+    build:
+      context: .
+      dockerfile: Dockerfile-local
+    ports:
+      - "9080:8080"
+    networks:
+      - my-network
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+    volumes:
+      - ./:/src  # 소스 코드는 /src 에 마운트, 빌드 산출물은 덮어쓰지 않음
+    restart: unless-stopped
+
 networks:
   my-network:
     driver: bridge # 브릿지 네트워크 사용. 컨테이너간 기본 네트워킹 제공

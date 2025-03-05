@@ -1,7 +1,7 @@
 db:
   engine: postgresql
-  host: localhost
-  port: 5433
+  host: db # container 명
+  port: 5432 # container port
   username: swd
   password: swd1234
   dbname: swd-db
